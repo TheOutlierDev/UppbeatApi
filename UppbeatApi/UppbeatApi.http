@@ -1,6 +1,3 @@
 @UppbeatApi_HostAddress = http://localhost:5184
 
-GET {{UppbeatApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
 ###

@@ -1,24 +1,39 @@
+using UppbeatApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+
+// Add custom service configurations
+builder.Services.AddSwaggerConfiguration();
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddRateLimiting(builder.Configuration);
+builder.Services.AddScopedServices();
+builder.Services.AddSingletonServices();
+
+// Add authorization
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || Environment.GetEnvironmentVariable("DOCKER_ENVIRONMENT") == "true")
 {
-    app.MapOpenApi();
+    app.UseSwaggerConfiguration();
 }
+
+// Use rate limiting
+app.UseRateLimiting();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// Enable authentication and authorization in the correct order
+app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
