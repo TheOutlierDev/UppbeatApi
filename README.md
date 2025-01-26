@@ -16,6 +16,7 @@ A secure, scalable RESTful API built with .NET for managing an uppbeat library. 
 
 - Docker and Docker Compose
 - .NET 9.0 SDK (for local development)
+- Docker Desktop (for local development)
 
 ## Getting Started
 
