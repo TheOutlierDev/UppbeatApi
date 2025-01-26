@@ -174,14 +174,13 @@ Database data is persisted using a named volume (`postgres_data`). This ensures 
 
 ### Authentication
 
-#### Login
+#### Token
 ```http
-POST /Auth/login
+POST /Auth/token
 Content-Type: application/json
 
 {
-    "userId": "testartist",
-    "password": "yourpassword"
+    "userId": "00000000-0000-0000-0000-000000000000"
 }
 ```
 
